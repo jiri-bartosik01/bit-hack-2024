@@ -2,6 +2,13 @@
 import {getPoolById, Pool} from "../helpers/pools.ts";
 import {computed, ComputedRef, onMounted, ref} from "vue";
 import PredictionGraph from "./PredictionGraph.vue";
+import WeatherSunnyIcon from 'vue-material-design-icons/WeatherSunny.vue';
+import WeatherCloudIcon from 'vue-material-design-icons/WeatherCloudy.vue'
+import WeatherPartialIcon from 'vue-material-design-icons/WeatherPartlyCloudy.vue'
+import TemperatureIcon from 'vue-material-design-icons/Thermometer.vue'
+import RainIcon from 'vue-material-design-icons/Water.vue'
+
+
 
 const props = defineProps(['poolId']);
 
@@ -64,14 +71,14 @@ onMounted(() => {
       </div>
     </nav>
     <div class="card mx-4 my-4">
-      <div class="card-header">
+      <div class="card-header d-flex">
         Informace o sportovišti
       </div>
       <div class="card-body">
         <div class="row">
-          <div class="col col-4">
+          <div class="col-12 col-md-4 pb-4" style="min-width: 333px">
             <div class="card">
-              <img class=" custom-img" :src="pool.imageUrl">
+              <img class="custom-img" :src="pool.imageUrl">
               <div class="card-body">
                 <ul class="list-group list-group-flush">
                   <li class="list-group-item">{{pool.description}}</li>
@@ -80,10 +87,37 @@ onMounted(() => {
               </div>
             </div>
           </div>
-          <div class="col">
+          <div class="col-12 col-md-8" style="min-width: 460px">
             <div class="card">
               <div class="card-body">
-                {{cloudCover}}, {{rain}}, {{temperature}}
+                <div class="row d-flex">
+                  <div class="col-12 col-md px-4 d-flex flex-column justify-content-center align-items-center">
+                    <div class="row">
+                      <weather-sunny-icon :size="60" fillColor="#ffd500" v-if="cloudCover < 25"/>
+                      <weather-cloud-icon :size="60" fillColor="#b0b0b0" v-else-if="cloudCover > 70"/>
+                      <weather-partial-icon :size="60" fillColor="#9df2f9" v-else/>
+                    </div>
+                    <div class="row">
+                      Oblačnost {{cloudCover}} %
+                    </div>
+                  </div>
+                  <div class="col-12 col-md px-4 d-flex flex-column justify-content-center align-items-center">
+                    <div class="row">
+                      <temperature-icon :size="60" fillColor="#2a2927"/>
+                    </div>
+                    <div class="row">
+                      Teplota {{temperature}} C
+                    </div>
+                  </div>
+                  <div class="col-12 col-md px-4 d-flex flex-column justify-content-center align-items-center">
+                    <div class="row">
+                      <rain-icon :size="60" fillColor="#00aaff" />
+                    </div>
+                    <div class="row">
+                      Srazky {{rain}} mm
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -119,4 +153,10 @@ onMounted(() => {
   object-fit: cover;
   width: 100%;
 }
+
+.icon {
+  height: 300px;
+}
+
+
 </style>
