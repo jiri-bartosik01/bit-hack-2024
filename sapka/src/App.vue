@@ -2,6 +2,7 @@
 import PoolListView from "./components/PoolListView.vue";
 import {onBeforeUnmount, onMounted, Ref, ref} from "vue";
 import PoolDetailView from "./components/PoolDetailView.vue";
+import PredictionGraph from "./components/PredictionGraph.vue";
 
 const currentId: Ref<null | number> = ref(null);
 
@@ -37,7 +38,7 @@ onMounted(() => {
       <PoolListView/>
     </div>
   </div>
-  <div v-else> <!-- Detail page -->
+  <div style="height: 100%;" v-else> <!-- Detail page -->
     <PoolDetailView :pool-id="currentId"/>
   </div>
 </template>
