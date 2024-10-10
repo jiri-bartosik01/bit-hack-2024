@@ -13,12 +13,11 @@ onMounted(() => {
   Chart.register(...registerables);
   const labels = openingHours;
   const dataset = {
-    label: 'Predikce počtu návštěvníků',
     data: [65, 59, 80, 81, 56, 55, 40, 30, 20, 10, 5, 1, 0],
     fill: true,
     tension: 0.35,
-    pointBorderColor: 'rgba(30, 30, 30, 0.8)',
-    pointBackgroundColor: 'rgba(30, 30, 30, 0.8)',
+    pointBorderColor: 'rgba(30, 30, 30, 0.5)',
+    pointBackgroundColor: 'rgba(30, 30, 30, 0.5)',
     segment: {
       borderColor: (context) => {
         return context.p0.parsed.x >= currentHourIndex ? 'rgba(75, 192, 192, 1)' : 'rgba(192, 75, 75, 1)';
