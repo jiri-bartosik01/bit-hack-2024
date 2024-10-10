@@ -16,7 +16,8 @@ onMounted(async () => {
   const fetchedData = await fetchData(0)
   console.log(fetchedData)
   // the opening hours is a list of values '08:00', '09:00, ..., '20:00'
-  const currentHourOfDay = new Date().getHours();
+  // const currentHourOfDay = new Date().getHours(); // TODO in prod
+  const currentHourOfDay = 15;
   const currentHourIndex = currentHourOfDay - fetchedData['opening_hours'][0];
   const openingHours = fetchedData['opening_hours'].map((item) => item + ':00');
 
@@ -24,7 +25,7 @@ onMounted(async () => {
   const labels = openingHours;
   const dataset = {
     // label: '',
-    data: [65, 59, 80, 81, 56, 55, 40, 30, 20, 10, 5, 1, 0],
+    data: fetchedData['data'],
     fill: true,
     tension: 0.35,
     pointBorderColor: 'rgba(30, 30, 30, 0.5)',
