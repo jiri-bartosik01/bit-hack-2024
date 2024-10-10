@@ -1,0 +1,27 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*.so
+
+# Virtual environment
+env/
+.venv/
+pool-prediction-env/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints
+
+# VSCode settings
+.vscode/
+
+# MacOS-specific files
+.DS_Store
+
+# Ignore binary files and logs
+*.log
+*.bin
+*.exe
+*.dll
+*.deb
+*.tar.gz
+*.egg-info/
