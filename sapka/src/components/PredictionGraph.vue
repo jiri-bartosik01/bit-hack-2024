@@ -4,15 +4,26 @@ import {onMounted, useTemplateRef} from "vue";
 
 const canvas = useTemplateRef('canvas')
 
-onMounted(() => {
+defineProps(['poolId']);
+
+async function fetchData(id) {
+  // use the classic JS fetch API
+  const response = await fetch(`http://127.0.0.1:8000/predictions/${id}`);
+  return response.json();
+}
+
+onMounted(async () => {
+  const fetchedData = await fetchData(0)
+  console.log(fetchedData)
   // the opening hours is a list of values '08:00', '09:00, ..., '20:00'
-  const openingHours = Array.from({length: 13}, (_, i) => `${i + 8}:00`);
   const currentHourOfDay = new Date().getHours();
-  const currentHourIndex = currentHourOfDay - 8;
+  const currentHourIndex = currentHourOfDay - fetchedData['opening_hours'][0];
+  const openingHours = fetchedData['opening_hours'].map((item) => item + ':00');
 
   Chart.register(...registerables);
   const labels = openingHours;
   const dataset = {
+    // label: '',
     data: [65, 59, 80, 81, 56, 55, 40, 30, 20, 10, 5, 1, 0],
     fill: true,
     tension: 0.35,
@@ -41,10 +52,11 @@ onMounted(() => {
     type: 'line',
     data: data,
     options: {
-      legend: {
-        display: false
-      },
-      fill: true
+      plugins: {
+        legend: {
+          display: false
+        }
+      }
     }
   };
 
