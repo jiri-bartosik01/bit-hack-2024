@@ -89,7 +89,7 @@ onMounted(() => {
             </div>
           </div>
           <div class="col-12 col-md-8 py-2" style="min-width: 300px">
-            <div class="card h-100">
+            <div class="card">
               <div class="card-body">
                 <div v-if="!loading" class="row d-flex">
                   <div class="col-12 col-md px-4 d-flex flex-column justify-content-center align-items-center py-2">
