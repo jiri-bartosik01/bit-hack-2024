@@ -30,7 +30,7 @@ def create_time_windows(df, window_size=7):
         y.append(df.iloc[i + window_size]['total'])  # Target is the capacity on the next day
     return np.array(X), np.array(y)
 
-window_size = 48  # Number of days in each window
+window_size = 168  # Number of days in each window
 X, y = create_time_windows(data, window_size)
 
 # Split into 70% training and 30% test
