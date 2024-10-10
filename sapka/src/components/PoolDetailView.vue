@@ -7,14 +7,15 @@ const props = defineProps(['poolId']);
 const pool: Pool = computed(() => {
   return getPoolById(props.poolId);
 })
-
-
-console.log(pool);
-
 </script>
 
 <template>
-
+  <div v-if="pool">
+    pool {{pool.id}}
+  </div>
+  <div v-else>
+    neni pool
+  </div>
 </template>
 
 <style scoped>
