@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {getPoolById, Pool} from "../helpers/pools.ts";
-import {computed, ComputedRef} from "vue";
+import {computed, ComputedRef, onMounted, ref} from "vue";
 import PredictionGraph from "./PredictionGraph.vue";
 
 const props = defineProps(['poolId']);
@@ -12,12 +12,92 @@ const pool: ComputedRef<Pool | undefined> = computed(() => {
 const returnToBasePath = () => {
   window.location.href = `/`; // Manually navigate to /pool/{poolId}
 };
+
+async function getWeatherData(): Promise<{ temperature: number; rain: number; cloudCover: number } | undefined> {
+  try {
+    const response = await fetch(
+        "https://api.open-meteo.com/v1/forecast?latitude=52.52&longitude=13.41&current=temperature_2m,rain,cloud_cover"
+    );
+    const data = await response.json();
+
+    // Extract the necessary values
+    const temperature = data.current.temperature_2m;
+    const rain = data.current.rain;
+    const cloudCover = data.current.cloud_cover;
+
+    return {
+      temperature,
+      rain,
+      cloudCover
+    };
+  } catch (error) {
+    console.error("Error fetching weather data:", error);
+    return undefined;
+  }
+}
+
+const temperature = ref<number | null>(null);
+const rain = ref<number | null>(null);
+const cloudCover = ref<number | null>(null);
+
+// Function to fetch the weather data
+async function fetchWeatherData() {
+  const weatherData = await getWeatherData();
+  if (weatherData) {
+    temperature.value = weatherData.temperature;
+    rain.value = weatherData.rain;
+    cloudCover.value = weatherData.cloudCover;
+  }
+}
+
+onMounted(() => {
+  fetchWeatherData();
+});
 </script>
 
 <template>
   <div style="height: 100%;" v-if="pool">
-    pool {{pool.id}}
-    <PredictionGraph></PredictionGraph>
+    <nav class="navbar bg-body-secondary px-4">
+      <div class="container-fluid">
+        <span class="navbar-brand mb-0 h1">{{pool.name}}</span>
+        <a href="#" class="btn btn-outline-primary" @click="returnToBasePath">Ostatní sportoviště</a>
+      </div>
+    </nav>
+    <div class="card mx-4 my-4">
+      <div class="card-header">
+        Informace o sportovišti
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col col-4">
+            <div class="card">
+              <img class=" custom-img" :src="pool.imageUrl">
+              <div class="card-body">
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item">{{pool.description}}</li>
+                  <li class="list-group-item">{{pool.covered ? "Krytý bazén" : "Venkovní bazén"}}</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+            <div class="card">
+              <div class="card-body">
+                {{cloudCover}}, {{rain}}, {{temperature}}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card mx-4 my-4">
+      <div class="card-header">
+        Predikce využití pro dnešní den
+      </div>
+      <div class="card-body">
+        <PredictionGraph></PredictionGraph>
+      </div>
+    </div>
   </div>
   <div v-else>
     <div class="d-flex flex-column min-vh-100 justify-content-center align-items-center">
@@ -34,5 +114,9 @@ const returnToBasePath = () => {
 </template>
 
 <style scoped>
-
+.custom-img {
+  height: 100px;
+  object-fit: cover;
+  width: 100%;
+}
 </style>
