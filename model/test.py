@@ -9,8 +9,8 @@ from data import train_X, test_X, train_y, test_y
 model = load_model('model.keras')
 
 # Test the model
-predictions = model.predict(tf.convert_to_tensor(train_X, dtype=tf.float32))
-loss, mae = model.evaluate(tf.convert_to_tensor(train_X, dtype=tf.float32), train_y)
+predictions = model.predict(tf.convert_to_tensor(test_X, dtype=tf.float32))
+loss, mae = model.evaluate(tf.convert_to_tensor(test_X, dtype=tf.float32), test_y)
 
 print(f'Test Loss: {loss}')
 print(f'Test MAE: {mae}')
