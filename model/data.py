@@ -21,8 +21,8 @@ data = data.drop('date', axis=1)
 
 # Assume 'data' is a Pandas DataFrame containing your features
 scaler = StandardScaler()
-data[['capacity', 'temperature', 'humidity', 'wspeed']] = scaler.fit_transform(
-    data[['capacity', 'temperature', 'humidity', 'wspeed']]
+data[['temperature', 'humidity', 'wspeed']] = scaler.fit_transform(
+    data[['temperature', 'humidity', 'wspeed']]
 )
 
 # Use pandas to one-hot encode categorical features
