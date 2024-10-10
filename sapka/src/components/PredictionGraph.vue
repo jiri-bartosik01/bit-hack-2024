@@ -15,18 +15,21 @@ onMounted(() => {
   const dataset = {
     label: 'Predikce počtu návštěvníků',
     data: [65, 59, 80, 81, 56, 55, 40, 30, 20, 10, 5, 1, 0],
-    fill: false,
-    borderColor: 'rgb(75, 192, 192)',
-    tension: 0.1,
+    fill: true,
+    tension: 0.35,
+    pointBorderColor: 'rgba(30, 30, 30, 0.8)',
+    pointBackgroundColor: 'rgba(30, 30, 30, 0.8)',
     segment: {
-      // borderColor: (context) => {
-      //   const value = context.p0.parsed.y;
-      //   return value > 50 ? 'rgb(75, 192, 192)' : 'rgb(192, 75, 75)';
-      // },
+      borderColor: (context) => {
+        return context.p0.parsed.x >= currentHourIndex ? 'rgba(75, 192, 192, 1)' : 'rgba(192, 75, 75, 1)';
+      },
       borderDash: (context) => {
         // make the line dashed after the current hour of day
         console.log(`Calculating borderDash for ${context.p0.parsed.x}`);
         return context.p0.parsed.x >= currentHourIndex ? [8, 10] : undefined;
+      },
+      backgroundColor: (context) => {
+        return context.p0.parsed.x >= currentHourIndex ? 'rgba(75, 192, 192, 0.1)' : 'rgba(192, 75, 75, 0.5)';
       }
     }
   }
