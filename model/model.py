@@ -10,16 +10,15 @@ input_layer = layers.Input(shape=(window_size, train_X.shape[2]))
 # Build the CNN model
 model = models.Sequential([
     input_layer,
-    layers.Conv1D(1024, kernel_size=3, padding='SAME', activation='relu'),
+    layers.Conv1D(248, kernel_size=3, padding='SAME', activation='relu'),
     layers.BatchNormalization(),
     layers.MaxPooling1D(pool_size=2),
-    layers.Conv1D(512, kernel_size=3, padding='SAME', activation='relu'),
+    layers.Conv1D(64, kernel_size=3, padding='SAME', activation='relu'),
     layers.BatchNormalization(),
     layers.MaxPooling1D(pool_size=2),
     layers.Flatten(),
-    layers.Dense(4096, activation='relu', kernel_regularizer=tf.keras.regularizers.l2(0.001)),
-    layers.Dense(1024, activation='relu', kernel_regularizer=tf.keras.regularizers.l2(0.001)),
-    layers.Dense(512, activation='relu', kernel_regularizer=tf.keras.regularizers.l2(0.001)),
+    layers.Dense(248, activation='relu', kernel_regularizer=tf.keras.regularizers.l2(0.001)),
+    layers.Dense(128, activation='relu', kernel_regularizer=tf.keras.regularizers.l2(0.001)),
     layers.Dense(1)  # Output layer for regression
 ])
 
