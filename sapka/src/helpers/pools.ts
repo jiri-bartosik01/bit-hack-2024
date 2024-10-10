@@ -50,3 +50,7 @@ export const pools: Pool[] = [
         imageUrl: "https://zabrdovice.starez.cz/_files/gallery/galerie8/galerie-0299.jpg"
     }
 ];
+
+export function getPoolById(id: number): Pool | undefined {
+    return pools.find(pool => pool.id == id);
+}
