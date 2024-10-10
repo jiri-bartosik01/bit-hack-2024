@@ -23,6 +23,7 @@ onMounted(async () => {
   Chart.register(...registerables);
   const labels = openingHours;
   const dataset = {
+    // label: '',
     data: [65, 59, 80, 81, 56, 55, 40, 30, 20, 10, 5, 1, 0],
     fill: true,
     tension: 0.35,
@@ -51,10 +52,11 @@ onMounted(async () => {
     type: 'line',
     data: data,
     options: {
-      legend: {
-        display: false
-      },
-      fill: true
+      plugins: {
+        legend: {
+          display: false
+        }
+      }
     }
   };
 
