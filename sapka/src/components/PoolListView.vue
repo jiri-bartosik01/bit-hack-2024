@@ -5,7 +5,7 @@ import { pools } from "../helpers/pools.ts";
 <template>
 
   <div class="row gy-5">
-    <div class="col" v-for="pool in pools" :key="pool.id">
+    <div class="col d-flex justify-content-center" v-for="pool in pools" :key="pool.id">
       <div class="card" style="width: 18rem;">
         <img class="card-img-top custom-img" :src="pool.imageUrl" alt="Card image cap">
         <div class="card-body">
