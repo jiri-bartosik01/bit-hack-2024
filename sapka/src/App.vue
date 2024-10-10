@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import PoolListView from "./components/PoolListView.vue";
 import {onBeforeUnmount, onMounted, ref} from "vue";
+import PoolDetailView from "./components/PoolDetailView.vue";
 
 const currentId = ref();
 
@@ -42,7 +43,7 @@ onBeforeUnmount(() => {
     </div>
   </div>
   <div v-else> <!-- Detail page -->
-    <h1>Detail Page for ID: {{ currentId }}</h1>
+    <PoolDetailView :pool-id="currentId"/>
   </div>
 </template>
 
