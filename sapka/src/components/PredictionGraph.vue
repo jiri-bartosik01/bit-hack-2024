@@ -7,6 +7,8 @@ const canvas = useTemplateRef('canvas')
 onMounted(() => {
   // the opening hours is a list of values '08:00', '09:00, ..., '20:00'
   const openingHours = Array.from({length: 13}, (_, i) => `${i + 8}:00`);
+  const currentHourOfDay = new Date().getHours();
+  const currentHourIndex = currentHourOfDay - 8;
 
   Chart.register(...registerables);
   const labels = openingHours;
@@ -17,13 +19,14 @@ onMounted(() => {
     borderColor: 'rgb(75, 192, 192)',
     tension: 0.1,
     segment: {
-      borderColor: (context) => {
-        const value = context.p0.parsed.y;
-        return value > 50 ? 'rgb(75, 192, 192)' : 'rgb(192, 75, 75)';
-      },
+      // borderColor: (context) => {
+      //   const value = context.p0.parsed.y;
+      //   return value > 50 ? 'rgb(75, 192, 192)' : 'rgb(192, 75, 75)';
+      // },
       borderDash: (context) => {
-        const value = context.p0.parsed.y;
-        return value > 50 ? [] : [5, 15];
+        // make the line dashed after the current hour of day
+        console.log(`Calculating borderDash for ${context.p0.parsed.x}`);
+        return context.p0.parsed.x >= currentHourIndex ? [8, 10] : undefined;
       }
     }
   }
