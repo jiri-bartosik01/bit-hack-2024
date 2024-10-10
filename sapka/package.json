@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@types/mapbox-gl": "^3.4.0",
-    "bootstrap": "5.3.3",
+    "bootstrap": "^5.3.3",
     "chart.js": "^4.4.4",
     "mapbox-gl": "^3.7.0",
     "sass": "^1.79.4",
