@@ -41,6 +41,9 @@ onMounted(() => {
     type: 'line',
     data: data,
     options: {
+      legend: {
+        display: false
+      },
       fill: true
     }
   };
