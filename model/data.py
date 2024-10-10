@@ -8,14 +8,10 @@ from sklearn.model_selection import train_test_split
 file_path = '../preprocess/data_zpracovane.csv'  # Update if necessary to match the actual format
 data = pd.read_csv(file_path, sep=';')
 
-# Assume 'data' is a Pandas DataFrame containing your features
 scaler = StandardScaler()
 data[['temperature']] = scaler.fit_transform(
     data[['temperature']]
 )
-
-# Use pandas to one-hot encode categorical features
-#data = pd.get_dummies(data, columns=['day', 'isholiday'])
 
 
 def create_time_windows(df, window_size=7):
