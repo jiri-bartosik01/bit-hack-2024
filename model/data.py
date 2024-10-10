@@ -8,16 +8,11 @@ from sklearn.model_selection import train_test_split
 file_path = '../preprocess/data_zpracovane.csv'  # Update if necessary to match the actual format
 data = pd.read_csv(file_path, sep=';')
 
-# Convert the date column to datetime
-#data['date'] = pd.to_datetime(data['date'])
-#data['timestamp'] = data['date'].apply(lambda x: x.timestamp())
-#data = data.drop('date', axis=1)
-
 # Assume 'data' is a Pandas DataFrame containing your features
-#scaler = StandardScaler()
-#data[['temperature', 'humidity', 'wspeed']] = scaler.fit_transform(
-#    data[['temperature', 'humidity', 'wspeed']]
-#)
+scaler = StandardScaler()
+data[['temperature']] = scaler.fit_transform(
+    data[['temperature']]
+)
 
 # Use pandas to one-hot encode categorical features
 #data = pd.get_dummies(data, columns=['day', 'isholiday'])
