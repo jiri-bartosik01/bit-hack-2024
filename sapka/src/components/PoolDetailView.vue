@@ -8,7 +8,7 @@ import WeatherPartialIcon from 'vue-material-design-icons/WeatherPartlyCloudy.vu
 import TemperatureIcon from 'vue-material-design-icons/Thermometer.vue'
 import RainIcon from 'vue-material-design-icons/Water.vue'
 
-
+const loading = ref(true);
 
 const props = defineProps(['poolId']);
 
@@ -55,6 +55,7 @@ async function fetchWeatherData() {
     rain.value = weatherData.rain;
     cloudCover.value = weatherData.cloudCover;
   }
+  loading.value = false;
 }
 
 onMounted(() => {
@@ -75,8 +76,8 @@ onMounted(() => {
         Informace o sportovišti
       </div>
       <div class="card-body">
-        <div class="row">
-          <div class="col-12 col-md-4 pb-4" style="min-width: 333px">
+        <div class="row d-flex align-items-stretch">
+          <div class="col-12 col-md-4 py-2" style="min-width: 300px">
             <div class="card">
               <img class="custom-img" :src="pool.imageUrl">
               <div class="card-body">
@@ -87,36 +88,39 @@ onMounted(() => {
               </div>
             </div>
           </div>
-          <div class="col-12 col-md-8" style="min-width: 460px">
-            <div class="card">
+          <div class="col-12 col-md-8 py-2" style="min-width: 300px">
+            <div class="card h-100">
               <div class="card-body">
-                <div class="row d-flex">
-                  <div class="col-12 col-md px-4 d-flex flex-column justify-content-center align-items-center">
+                <div v-if="!loading" class="row d-flex">
+                  <div class="col-12 col-md px-4 d-flex flex-column justify-content-center align-items-center py-2">
                     <div class="row">
                       <weather-sunny-icon :size="60" fillColor="#ffd500" v-if="cloudCover < 25"/>
                       <weather-cloud-icon :size="60" fillColor="#b0b0b0" v-else-if="cloudCover > 70"/>
                       <weather-partial-icon :size="60" fillColor="#9df2f9" v-else/>
                     </div>
-                    <div class="row">
-                      Oblačnost {{cloudCover}} %
+                    <div class="row fs-3">
+                      {{cloudCover}} %
                     </div>
                   </div>
-                  <div class="col-12 col-md px-4 d-flex flex-column justify-content-center align-items-center">
+                  <div class="col-12 col-md px-4 d-flex flex-column justify-content-center align-items-center py-2">
                     <div class="row">
                       <temperature-icon :size="60" fillColor="#2a2927"/>
                     </div>
-                    <div class="row">
-                      Teplota {{temperature}} C
+                    <div class="row fs-3">
+                      {{temperature}} &deg;C
                     </div>
                   </div>
-                  <div class="col-12 col-md px-4 d-flex flex-column justify-content-center align-items-center">
+                  <div class="col-12 col-md px-4 d-flex flex-column justify-content-center align-items-center py-2">
                     <div class="row">
                       <rain-icon :size="60" fillColor="#00aaff" />
                     </div>
-                    <div class="row">
-                      Srazky {{rain}} mm
+                    <div class="row fs-3">
+                      {{rain}} mm
                     </div>
                   </div>
+                </div>
+                <div v-else-if="!loading" class="spinner-grow" role="status">
+                  <span class="visually-hidden">Loading...</span>
                 </div>
               </div>
             </div>
@@ -124,6 +128,7 @@ onMounted(() => {
         </div>
       </div>
     </div>
+
     <div class="card mx-4 my-4">
       <div class="card-header">
         Predikce využití pro dnešní den
