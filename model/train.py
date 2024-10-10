@@ -5,7 +5,9 @@ import matplotlib.pyplot as plt
 from model import *
 
 # Train the model
-history = model.fit(tf.convert_to_tensor(train_X, dtype=tf.float32), train_y, epochs=50, batch_size=16, validation_split=0.2)
+history = model.fit(tf.convert_to_tensor(train_X, dtype=tf.float32), train_y, epochs=50, batch_size=20, validation_split=0.2)
+# Save the model
+model.save('model.keras')
 
 plt.plot(history.history['loss'], label='train loss')
 plt.plot(history.history['val_loss'], label='val loss')
