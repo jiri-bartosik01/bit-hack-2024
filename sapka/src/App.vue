@@ -1,11 +1,11 @@
 <script setup lang="ts">
 import PoolListView from "./components/PoolListView.vue";
-import {onBeforeUnmount, onMounted, ref} from "vue";
+import {onBeforeUnmount, onMounted, Ref, ref} from "vue";
 import PoolDetailView from "./components/PoolDetailView.vue";
 
-const currentId = ref();
+const currentId: Ref<null | number> = ref(null);
 
-const updateCurrentId = () => {
+function updateCurrentId() {
   const path = window.location.pathname;
   const id = path.split('/')[1];
   if (id) {
@@ -16,18 +16,13 @@ const updateCurrentId = () => {
   } else {
     currentId.value = null;
   }
-};
+}
 
 // Lifecycle hooks
 onMounted(() => {
   updateCurrentId();
-  console.log(currentId.value);
-  window.addEventListener('popstate', updateCurrentId);
 });
 
-onBeforeUnmount(() => {
-  window.removeEventListener('popstate', updateCurrentId);
-});
 </script>
 
 <template>

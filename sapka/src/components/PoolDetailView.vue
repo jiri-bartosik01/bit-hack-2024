@@ -1,16 +1,20 @@
 <script setup lang="ts">
-const props = defineProps(['poolId'])
-import { pools } from "../helpers/pools.ts";
+import {getPoolById, Pool} from "../helpers/pools.ts";
+import {computed} from "vue";
 
-var pool = pools.filter(obj => {
-  return obj.id === props.poolId
-});
+const props = defineProps(['poolId']);
+
+const pool: Pool = computed(() => {
+  return getPoolById(props.poolId);
+})
+
 
 console.log(pool);
+
 </script>
 
 <template>
-  {{props.poolId}}
+
 </template>
 
 <style scoped>
