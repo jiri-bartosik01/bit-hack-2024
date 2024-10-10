@@ -5,7 +5,7 @@ __pycache__/
 
 # Virtual environment
 env/
-venv/
+.venv/
 pool-prediction-env/
 
 # Jupyter Notebook checkpoints
