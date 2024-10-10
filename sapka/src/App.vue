@@ -28,7 +28,7 @@ onMounted(() => {
 
 <template>
   <div v-if="currentId === null">
-    <nav class="navbar navbar-expand-lg starex-bar">
+    <nav class="navbar navbar-expand-lg starez-bar">
       <div class="container-fluid mx-4">
         <img class="logo" src="./assets/starez.svg">
         <a class="navbar-brand" href="#">Obsazenost sportovišť</a>
@@ -48,7 +48,7 @@ onMounted(() => {
     max-height: 28px;
   }
 
-  .starex-bar {
+  .starez-bar {
     height: 100px;
 
   }
