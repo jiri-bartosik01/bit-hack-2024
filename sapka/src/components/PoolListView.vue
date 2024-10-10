@@ -1,5 +1,9 @@
 <script setup lang="ts">
 import { pools } from "../helpers/pools.ts";
+
+const goToPoolDetail = (poolId: number) => {
+  window.location.href = `/${poolId}`; // Manually navigate to /pool/{poolId}
+};
 </script>
 
 <template>
@@ -11,7 +15,7 @@ import { pools } from "../helpers/pools.ts";
         <div class="card-body">
           <h5 class="card-title">{{ pool.name }}</h5>
           <p class="card-text">{{ pool.description }}</p>
-          <a href="#" class="btn btn-primary" @click="console.log(pool.id)">Detail</a>
+          <a href="#" class="btn btn-primary" @click="goToPoolDetail(pool.id)">Detail</a>
         </div>
       </div>
     </div>
