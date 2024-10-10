@@ -5,7 +5,7 @@ import numpy as np
 from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split
 
-file_path = '../data-raw/data_zpracovane.csv'  # Update if necessary to match the actual format
+file_path = '../preprocess/data_zpracovane.csv'  # Update if necessary to match the actual format
 data = pd.read_csv(file_path, sep=';')
 
 # Convert the date column to datetime
